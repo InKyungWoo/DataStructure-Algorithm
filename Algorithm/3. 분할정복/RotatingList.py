@@ -1,15 +1,15 @@
 # 이진탐색으로 시간복잡도 O(n) -> O(logn) 으로 줄일 수 있음
 
 def find_smallest_index(A, start, end):
-		if start == end: 			# 시작 인덱스와 마지막 인덱스가 같을 때
-				return start 	
+	if start == end: 			# 시작 인덱스와 마지막 인덱스가 같을 때
+		return start 	
 		
-		mid = (start + end) // 2 			# mid 값을 이용해 분할정복
+	mid = (start + end) // 2 			# mid 값을 이용해 분할정복
 		
-		if A[mid] < A[end]: 
-				return find_smallest_index(A, start, mid) 	# 왼쪽 구간에 최소값이 있을 경우
-		else:
-				return find_smallest_index(A, mid + 1, end) # 오른쪽 구간에 최소값이 있을 경우
+	if A[mid] < A[end]: 
+		return find_smallest_index(A, start, mid) 	# 왼쪽 구간에 최소값이 있을 경우
+	else:
+		return find_smallest_index(A, mid + 1, end) # 오른쪽 구간에 최소값이 있을 경우
 
 A = A = [int(x) for x in input().split()]
 
@@ -18,7 +18,7 @@ k = len(A) - find_smallest_index(A, 0, len(A)-1)
 
 # 회전을 하지 않은 경우
 if len(A) == k: # 최소값의 인덱스가 0이면
-   k = 0				# 회전횟수 0
+   k = 0		# 회전횟수 0
 		
 print(k)
 
