@@ -1,4 +1,5 @@
 # for문 사용, 불필요한 연산 줄인 코드
+# 최종 제출하고 만점받은 코드
 
 def max_sum(A, left, right):
     
