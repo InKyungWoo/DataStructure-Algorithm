@@ -1,3 +1,4 @@
+# 방법1. 빼기 연산
 def gcd_sub(a, b):
 	while a * b != 0:
 		if a > b: 
@@ -6,6 +7,7 @@ def gcd_sub(a, b):
 			b = b - a
 	return a + b
 
+# 방법2. 나누기 연산
 def gcd_mod(a, b):
 	while a * b != 0:
 		if a > b: 
@@ -14,6 +16,7 @@ def gcd_mod(a, b):
 			b = b % a
 	return a + b
 	
+# 방법3. 재귀호출	
 def gcd_rec(a, b):
 	if a * b == 0:
 		return a + b
