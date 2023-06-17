@@ -1,31 +1,50 @@
 def two_sum(X, Y, t):
-    '''정렬된 두 리스트에서 각자 X[0->n-1], Y[0<-n-1]로 다가가면서 두 원소의 합이 t가 되는 경우가 있는지 선형탐색한다.'''
-    i, j = 0, len(Y)-1
-    while i < len(X) and j >= 0:
-        if X[i] + Y[j] == t:
-            #찾은 값이 있다면 True를 return
-            return True
-        elif X[i] + Y[j] < t:
-            #정렬된 두 리스트에서 각자 X[0->n-1], Y[0<-n-1]로 다가가고 있기때문에
-            # 만약 두 원소의 합이 t보다 작다면 두 원소의 합의 크기를 증가시켜야 하므로 비교적 작은값을 가리키는 X의 인덱스인 i를 ++
-            i += 1
-        else:
-            # 반대의 경우라면 두 원소의 합이 t보다 크기 때문에 두 원소의 합의 크기를 감소시켜야 하므로 비교적 큰값을 가리키는 Y의 인덱스인 j를 --
-            j -= 1
-    return False # 선형탐색을 모두 실시했지만 X[i] + Y[j] == t인 경우가 없다면 False를 return 
-'''while을 통해서 i가 n-1까지 가거나 j가 0까지 갈 동안 아래의 조건문을 수행(무조건 매번 i나 j는 움직인다.)하므로 최악의 경우의 수행시간-> O(n)'''
-#start of main
-A = [int(x) for x in input().split()]
-B = [int(x) for x in input().split()]
-C = [int(x) for x in input().split()]
+	# 리스트 X의 원소를 key로 하고, 그 값이 t와 일치하게 만드는 Y의 원소를 찾기 위해 hash table을 생성
+	hash_table = {x:1 for x in X}		# 해시 테이블 생성 -> O(n)
+	for y in Y:	
+		if t - y in hash_table:				# for문을 돌며 검사 -> O(n)
+			return True
+	return False
 
-A.sort() #리스트 정렬 by Tim-sort algorithm-> O(nlogn)
-B.sort() #리스트 정렬 by Tim-sort algorithm-> O(nlogn)
+A = [int(x) for x in input().split()]  # A 입력
+B = [int(x) for x in input().split()]  # B 입력
+C = [int(x) for x in input().split()]  # C 입력
 
-#for문을 다르게 사용해보자(for-else문 사용x, 리스트 인덱스 접근법 사용o)
-triple = False
-for i in range(len(C)): # C의 원소를 하나씩 two_sum함수에 전달하면서 a+b+c=0을 만족하는 쌍이 있는지 확인-> 수행시간1: O(n)
-    if two_sum(A, B, -C[i]):
-        triple = True
-        break
-print(True if triple else False)
+# 
+# 함수 two_sum을 적절한 형식으로 호출해 그 결과를 이용해 결과 출력
+for a in A:
+	if two_sum(B, C, -a):		# 원소를 하나씩 two_sum함수에 전달하면서 a+b+c=0을 만족하는 쌍이 있는지 확인 -> O(n)
+		print(True)
+		break
+else:		# for문이 interrupt없이 정상적으로 종료된다면 a+b+c=0을 만족하는 쌍이 없는 것이므로 False를 출력
+	print(False)
+
+# 수행시간 분석 및 Big-O 표기
+'''
+해시 테이블을 생성하여 X의 각 원소를 키로 사용하고, 해당 키에 대응하는 값을 1로 설정한다.
+생성된 해시테이블로 리스트 Y의 각 원소 y에 대해 t - y가 있는지 검사한다. 
+해당하는 값이 있다면, X에서 선택된 원소와 Y에서 선택된 원소의 합이 t와 일치하는 것이므로 True를 반환하고 그렇지 않다면 False를 반환한다.
+
+1. 해시 테이블 생성은 X의 모든 원소를 순회해야 하므로 -> O(n)
+2. Y의 각 원소에 대해 해시 테이블에서 t-y 찾기 -> 최악의 경우 모든 원소에 대해 수행한다면 -> O(n)
+3. two_sum(B, C, -a)룰 호출하여 검사하는 것은 O(n)이지만 A의 모든 원소에 대해 수행하므로 -> O(n^2)
+
+따라서 전체 알고리즘의 총 수행시간은 O(n^2)이다.
+'''
+
+# 참고) O(n^3)에 동작하는 알고리즘
+'''
+def three_sum(A, B, C):
+    for a in A:  # O(n)
+        for b in B:  # O(n)
+            for c in C:  # O(n)
+                if a + b + c == 0:
+                    return True  # 적어도 한 쌍의 (a, b, c)가 존재하여 그 합이 0이 되는 경우
+    return False  # 그런 쌍이 없음
+
+A = [int(x) for x in input().split()]  # A 입력
+B = [int(x) for x in input().split()]  # B 입력
+C = [int(x) for x in input().split()]  # C 입력
+
+print(three_sum(A, B, C))
+'''
