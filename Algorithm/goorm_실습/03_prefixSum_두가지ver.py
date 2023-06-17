@@ -33,10 +33,10 @@ before = time.process_time()
 prefixSum1(X) # prefixSum1 호출
 after = time.process_time()
 print("process time1 : ",after - before)
-#print("prefixSum1 : ", prefixSum1(X, n))
+#print("prefixSum1 : ", prefixSum1(X, n))		# 확인용
 
 before = time.process_time()
 prefixSum2(X) # prefixSum2 호출
 after = time.process_time()
 print("process time2 : ", after - before)
-#print("prefixSum2 : ", prefixSum2(X, n))
+#print("prefixSum2 : ", prefixSum2(X, n))		# 확인용
