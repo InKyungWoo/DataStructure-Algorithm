@@ -5,7 +5,7 @@ def prefixSum(A):
 		curr_sum = 0
 		for j in range(i, len(A)):
 			curr_sum += A[j]
-			max_sum = max(max_sum, curr_sum)
+			max_sum = max(max_sum, curr_sum)  # 둘 중 큰 값 저장
 
 	return max_sum
 
