@@ -1,3 +1,48 @@
+# heapq 모듈로 우선순위 큐 사용하여 12번 테케 timeout 해결
+import heapq
+
+class Prims:
+	def __init__(self, vertex):
+		self.vertex = vertex
+		self.data = [[] for _ in range(self.vertex)]
+
+	def AddAdges(self, src, dest, cost):
+		if src == dest:
+			print('same')
+		else:
+			self.data[src].append((dest, cost))
+			self.data[dest].append((src, cost))
+
+	def rasta(self, source):
+		visited = [False] * self.vertex
+		pq = [(0, source)]
+		total_cost = 0
+
+		while pq:
+			cost, node = heapq.heappop(pq)
+			if visited[node]:
+				continue
+			visited[node] = True
+			total_cost += cost
+
+			for neighbor, edge_cost in self.data[node]:
+				if not visited[neighbor]:
+					heapq.heappush(pq, (edge_cost, neighbor))
+
+		print(total_cost)
+
+
+n = int(input())
+m = int(input())
+g = Prims(n)
+for _ in range(m):
+	a, b, c = map(int, input().split())
+	g.AddAdges(a, b, c)
+
+g.rasta(3)
+
+# 12번 테케 - Timeout으로 Runtime Error
+'''
 class Prims:
 	def __init__(self,vertex):
 		self.vertex = vertex
@@ -54,3 +99,4 @@ for i in range(m):
 	g.AddAdges(a, b, c)
 
 g.rasta(3)
+'''
