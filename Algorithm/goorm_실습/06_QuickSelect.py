@@ -7,7 +7,7 @@ def QuickSelect(L, k):
 	Mid.append(pivot)
 
 	for i, x in enumerate(L):
-		if i == 0:  # 첫 번째 요소는 피벗으로 이미 Mid 리스트에 추가되었으므로 건너뜁니다
+		if i == 0:  # 첫 번째 요소는 피봇으로 이미 Mid 리스트에 추가되었으므로 건너뛰기
 			continue
 		if x == pivot: Mid.append(x)
 		elif x < pivot: Left.append(x)
