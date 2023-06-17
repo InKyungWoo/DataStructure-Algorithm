@@ -2,8 +2,9 @@ def fibo(n):
 	if n == 0: return 1
 	if n == 1: return 1
 
-	a, b = 1, 1
-	i = 2
+	a, b = 1, 1	# 초기값 설정
+	i = 2				# 2번째 부터 계산
+	
 	while i <= n:
 		fib = a + b
 		a = b
