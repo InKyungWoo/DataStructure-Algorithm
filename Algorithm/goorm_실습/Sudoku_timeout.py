@@ -41,3 +41,5 @@ def solve(A):
 	
 	# 1~9까지 다 넣어서 해봤는데도 안풀리면 False
 	return False
+
+	# 아래에 호출 및 main code는 동일...
