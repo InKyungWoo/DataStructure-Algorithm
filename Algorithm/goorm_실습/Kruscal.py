@@ -1,12 +1,14 @@
+import heapq
+
 class DisjointSet:
 	def __init__(self, n):
-		self.parent = list(range(n))  # 각 노드의 부모 노드 정보를 저장. 초기에는 자기 자신이 부모
-		self.rank = [0]*n  # 루트 노드가 속한 트리의 랭크(높이)
-
+		self.parent = list(range(n))	# 각 노드의 부모 노드 정보를 저장. 초기에는 자기 자신이 부모
+		self.rank = [0] * n						# 루트 노드가 속한 트리의 랭크(높이)
+	
 	def find(self, x):
 		if self.parent[x] != x:
-			self.parent[x] = self.find(self.parent[x])  # 경로 압축. x의 최상위 부모를 찾아서 x의 부모로 직접 연결
-		return self.parent[x]  # x의 최상위 부모 반환
+			self.parent[x] = self.find(self.parent[x])	# 경로 압축. x의 최상위 부모를 찾아서 x의 부모로 직접 연결
+			return self.parent[x]	 # x의 최상위 부모 반환
 
 	def union(self, x, y):
 		px, py = self.find(x), self.find(y)		# x와 y의 최상위 부모 찾기
@@ -19,43 +21,46 @@ class DisjointSet:
 
 def Kruskal(G):
 	n = len(G)
-	edges = [(w, u, v) for u in range(n) for v, w in G[u]]	# 모든 간선 정보를 (가중치, 시작노드, 도착노드) 형태로 변환
-	edges.sort()		# 가중치 기준으로 간선들을 정렬
+	edges = [(w, u, v) for u in range(n) for v, w in G[u]]
+	heapq.heapify(edges)  # 간선들을 최소 힙으로 변환
 
 	ds = DisjointSet(n)
 	mst_weight = 0
-	# 가중치가 작은 간선부터 순회
-	for weight, u, v in edges:
-		# 사이클을 생성하지 않는 경우 MST의 총 가중치에 더해줌
+	num_selected_edges = 0
+
+	# 최소 가중치 간선이 선택되면서 순회
+	while edges and num_selected_edges < n - 1:
+		weight, u, v = heapq.heappop(edges)
+		# 사이클을 생성하지 않는 경우 MST의 총 가중치에 더하기
 		if ds.find(u) != ds.find(v):
 			mst_weight += weight
 			ds.union(u, v)
+			num_selected_edges += 1
+
 	return mst_weight
 
-n = int(input())		# 노드의 수 입력
-m = int(input())		# 에지의 수 입력
-G = [[] for _ in range(n)]		# 그래프 초기화
+n = int(input())
+m = int(input())
+G = [[] for _ in range(n)]
 
 for _ in range(m):
 	u, v, w = map(int, input().split())
-	G[u].append((v, w))
-	G[v].append((u, w))
+	G[u].append((v, w))			# (도착노드, 가중치) 형태로 인접 리스트에 연결 정보를 추가
+	G[v].append((u, w))			# 양방향 그래프이므로 반대 방향도 추가
 
 print(Kruskal(G))
 
+
 '''
-Kruskal 알고리즘을 사용하여 최소 신장 트리의 가중치 합을 구하고자 한다. 각 간선을 가중치 기준으로 정렬한 뒤, 분리 집합(Disjoint set)을 사용하여 사이클을 생성하지 않는 간선만 MST에 추가하는 방식으로 이를 위해 DisjointSet 클래스에서 union과 find 연산이 수행됩니다.
+<자료구조>
+1. `G`: 인접 리스트를 사용한 그래프 표현으로 각 노드에 연결된 에지 정보들이 리스트로 저장되어 있다.
+2. `edges`: 모든 간선 정보를 포함한 최소 힙
+3. `DisjointSet`: 공통 부모를 찾기 위한 서로소 집합(Disjoint Set)을 표현하는 클래스
 
-자료구조:
-1. DisjointSet: 분리 집합(Disjoint set)을 나타내는 클래스로, 서로 중복되지 않은 원소들의 집합을 표현하는 데 사용되며 두 가지 리스트가 있다.
-   - parent: 각 노드의 부모 노드 정보를 저장한다. (초기에는 모든 노드의 부모가 자기 자신)
-   - rank: 루트 노드가 속한 트리의 높이(rank)를 저장한다.
-2. Graph: 각 노드에 대한 인접 리스트로 구성된다.
-
-수행시간 분석:
-1. 분리 집합(Disjoint set)의 find 연산: 최악의 경우 시간 복잡도는 O(log V)이다 (V는 노드 수)
-2. 분리 집합(Disjoint set)의 union 연산: 최악의 경우 시간 복잡도는 O(log V)이다 
-3. 간선을 정렬하는 과정: 파이썬의 내장 sort 함수를 사용하면 최악의 경우 시간 O(E*log E)이 걸린다 (E는 간선 수).
-
-전체적인 시간 복잡도는 간선 정렬(O(E*log E))에 분리 집합의 find 및 union 연산(O(E * log V))이 합산되어 O(E * log E + E * log V)이다. V-1개의 간선이 선택되면서 분리 집합 연산이 수행되므로, 보통 O(E*log E)로 일반화하여 표현한다.
+<수행시간>
+1. 그래프 초기화: 입력 크기에 비례하여 O(m) (m은 간선의 수)
+2. Kruskal 알고리즘: 간선 리스트를 최소 힙으로 만드는 것은 O(m) 시간이 걸린다. 간선을 모두 처리하면서 사이클을 생성하지 않으면서 MST를 완성하는 과정은 크게 2가지 요소로 나뉜다:
+   - heapq.heappop 연산은 O(log m) 시간이 걸리며, 최악의 경우 간선을 모두 검사해야 하므로 이 부분의 시간 복잡도는 O(m log m)
+   - DisjointSet에서의 find와 union 연산은 모두 거의 상수시간에 가깝게 수행되므로 전체 시간 복잡도 또한 O(m log m)
+따라서, 전체 수행 시간 O(nlogn)이며 간선의 수에 따라 로그 스케일로 증가한다.
 '''
