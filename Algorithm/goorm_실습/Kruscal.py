@@ -8,7 +8,7 @@ class DisjointSet:
 	def find(self, x):
 		if self.parent[x] != x:
 			self.parent[x] = self.find(self.parent[x])	# 경로 압축. x의 최상위 부모를 찾아서 x의 부모로 직접 연결
-			return self.parent[x]	 # x의 최상위 부모 반환
+		return self.parent[x]	 # x의 최상위 부모 반환
 
 	def union(self, x, y):
 		px, py = self.find(x), self.find(y)		# x와 y의 최상위 부모 찾기
