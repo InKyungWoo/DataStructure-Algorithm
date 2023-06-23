@@ -16,7 +16,7 @@ def gcd_mod(a, b):
 			b = b % a
 	return a + b
 	
-# 방법3. 재귀호출	
+# 방법3. 재귀
 def gcd_rec(a, b):
 	if a * b == 0:
 		return a + b
