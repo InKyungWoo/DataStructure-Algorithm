@@ -15,8 +15,8 @@ def prefixSum2(X):
 		S[i] = S[i-1] + X[i]
 	return S
 	
-random.seed()		# random 함수 초기화
-n = int(input()) # n 입력받음
+random.seed()			# random 함수 초기화
+n = int(input())	# n 입력받음
 
 # 리스트 X를 randint를 호출하여 n개의 랜덤한 숫자로 채움
 X = []
