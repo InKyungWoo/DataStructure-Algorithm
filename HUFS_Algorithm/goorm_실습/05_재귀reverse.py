@@ -1,3 +1,5 @@
+# 재귀 호출
+
 def reverse(L, a):
 	n = len(L)
 	if a < n//2 :
