@@ -1,3 +1,5 @@
+# 비재귀: while문 사용
+
 def reverse(A):
 	n, i = len(A), 0
 	while i < n//2 : # 절반까지
