@@ -1,3 +1,5 @@
+# 선택정렬
+
 def QuickSelect(L, k):
 	if len(L) == 0:
 		return None
