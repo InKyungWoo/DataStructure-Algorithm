@@ -1,3 +1,5 @@
+# 분할정복 최대 구간 합
+
 def prefixSum(A):
 	max_sum = float('-inf')		# 음수로 초기화
 
