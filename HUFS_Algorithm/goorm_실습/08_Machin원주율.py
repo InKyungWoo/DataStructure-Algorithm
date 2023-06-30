@@ -1,3 +1,5 @@
+# 원주율 계산 - 마친의 공식
+
 def long_add(A, B, C):
 	 # 세 배열 A, B, C에서, C = A + B
 	carry = 0		# 올림수 저장
