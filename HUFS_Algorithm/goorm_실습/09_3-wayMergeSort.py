@@ -1,3 +1,5 @@
+# 3등분 합병 정렬
+
 def merge(A, first, m1, m2, last):
 	temp = []		# 합병할 리스트를 임시로 저장할 리스트
 	i, j, k = first, m1+1, m2+1		# 각 구간의 시작 인덱스
