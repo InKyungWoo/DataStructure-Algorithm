@@ -1,3 +1,5 @@
+# [정렬응용] a+b+c=0
+
 def two_sum(X, Y, t):
 	# 리스트 X의 원소를 key로 하고, 그 값이 t와 일치하게 만드는 Y의 원소를 찾기 위해 hash table을 생성
 	hash_table = {x:1 for x in X}		# 해시 테이블 생성 -> O(n)
