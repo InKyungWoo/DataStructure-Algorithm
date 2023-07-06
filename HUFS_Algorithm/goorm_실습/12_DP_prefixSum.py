@@ -1,3 +1,5 @@
+# 최대 구간 합 계산
+
 def max_prefix(A):
 	n = len(A)
 	dp = [0] * n  # dp[i]: A[0]부터 A[i]까지의 연속된 부분 수열의 합의 최대값
