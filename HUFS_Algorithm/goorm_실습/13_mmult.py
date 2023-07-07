@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
-# UTF-8 encoding when using korean
+# 행렬 곱셈 문제
+
 import math
 
 def matrix_mult():
