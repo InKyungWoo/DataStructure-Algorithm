@@ -1,3 +1,5 @@
+# 최장증가부문자열(LIS)
+
 def print_IS(seq, x):
     for i in range(len(seq)):
         if x[i]: 
