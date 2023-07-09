@@ -1,3 +1,5 @@
+# 허프만 - 최소 비용 계산
+
 import heapq
 
 class HuffmanNode:
