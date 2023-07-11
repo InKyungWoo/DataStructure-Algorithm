@@ -1,3 +1,5 @@
+# 부분집합 찾기
+
 def print_subset(x):
 	print([A[i] for i in range(len(x)) if x[i]])
 
