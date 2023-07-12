@@ -1,3 +1,5 @@
+# 스도쿠
+
 def solve(A):
 	 # 각 행, 열, 박스에서 사용된 숫자를 나타내는 보조 배열 생성 및 초기화
 	used_in_row = [[False]*10 for _ in range(9)]
