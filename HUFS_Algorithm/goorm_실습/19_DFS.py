@@ -1,3 +1,5 @@
+# 깊이 우선 탐색 (DFS)
+
 import sys
 sys.setrecursionlimit(5000)
 
