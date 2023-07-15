@@ -1,3 +1,5 @@
+# 위상 정렬
+
 # 테케 3~10 싹 다 에러..몰라 쉬벌
 from collections import deque
 import heapq
