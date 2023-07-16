@@ -1,3 +1,5 @@
+# 프림 알고리즘
+
 import heapq
 
 class Prims:
